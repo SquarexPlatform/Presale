@@ -137,6 +137,12 @@ contract PresaleToken
         }
     }
 
+/// Setters/getters
+    function setTokenManager(address _mgr) public onlyTokenManager
+    {
+        tokenManager = _mgr;
+    }
+
     function setCrowdsaleManager(address _mgr) public onlyTokenManager
     {
         // You can't change crowdsale contract when migration is in progress.
@@ -159,6 +165,10 @@ contract PresaleToken
     {
         return currentState;
     }
+
+    // getPrice
+    // getTotal
+    // getBalance
 
     // Default fallback function
     function() payable 
