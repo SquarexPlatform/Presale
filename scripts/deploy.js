@@ -38,13 +38,16 @@ web3.eth.getAccounts(function(err, as) {
           return;
      }
 
+     console.log('Acccounts: ');
+     console.log(as);
+
      // 2 - read ABI
      var contractName = ':PresaleToken';
      getContractAbi(contractName,function(err,abi,bytecode,abiJson){
           fs.writeFileSync('abi.out',abi);
           console.log('Wrote ABI to file: abi.out');
 
-          deployMain(creator,abi,bytecode);
+          //deployMain(creator,abi,bytecode);
      });
 });
 
