@@ -1,12 +1,14 @@
 pragma solidity ^0.4.12;
 
-
-// ERC20 token interface is implemented only partially.
+// ERC20 token interface is implemented only partially
+// (no SafeMath is used because contract code is very simple)
+// 
 // Some functions left undefined:
 //  - transfer, transferFrom,
 //  - approve, allowance.
-contract PresaleToken 
+contract PresaleToken
 {
+/// Fields:
     string public constant name = "SquarEx Presale Token";
     string public constant symbol = "SQPT";
     uint public constant decimals = 18;
@@ -18,13 +20,6 @@ contract PresaleToken
     // 
     // ETH price ~300$ for 30.06.2017
     uint public constant TOKEN_SUPPLY_LIMIT = 1000 * 2000 * (1 ether / 1 wei);
-
-    /// @dev Constructor
-    /// @param _tokenManager Token manager address.
-    function PresaleToken(address _tokenManager, address _escrow) {
-        tokenManager = _tokenManager;
-        escrow = _escrow;
-    }
 
     enum State{
        Init,
@@ -39,26 +34,37 @@ contract PresaleToken
 
     // Token manager has exclusive priveleges to call administrative
     // functions on this contract.
-    address public tokenManager;
+    address public tokenManager = 0;
 
     // Gathered funds can be withdrawn only to escrow's address.
-    address public escrow;
+    address public escrow = 0;
 
     // Crowdsale manager has exclusive priveleges to burn presale tokens.
-    address public crowdsaleManager;
+    address public crowdsaleManager = 0;
 
     mapping (address => uint256) private balance;
 
+/// Modifiers:
     modifier onlyTokenManager()     { if(msg.sender != tokenManager) throw; _; }
     modifier onlyCrowdsaleManager() { if(msg.sender != crowdsaleManager) throw; _; }
     modifier onlyInState(State state){ if(state != currentState) throw; _; }
 
+/// Events:
     event LogBuy(address indexed owner, uint value);
     event LogBurn(address indexed owner, uint value);
     event LogStateSwitch(State newState);
 
-    /// @dev Lets buy you some tokens.
-    function buyTokens(address _buyer) public payable onlyInState(State.Running){
+/// Functions:
+    /// @dev Constructor
+    /// @param _tokenManager Token manager address.
+    function PresaleToken(address _tokenManager, address _escrow) 
+    {
+        tokenManager = _tokenManager;
+        escrow = _escrow;
+    }
+
+    function buyTokens(address _buyer) public payable onlyInState(State.Running)
+    {
         if(msg.value == 0) throw;
         uint newTokens = msg.value * PRICE;
 
@@ -66,9 +72,9 @@ contract PresaleToken
 
         balance[_buyer] += newTokens;
         totalSupply += newTokens;
+
         LogBuy(_buyer, newTokens);
     }
-
 
     /// @dev Returns number of tokens owned by given address.
     /// @param _owner Address of token owner.
@@ -76,12 +82,15 @@ contract PresaleToken
     {
         uint tokens = balance[_owner];
         if(tokens == 0) throw;
+
         balance[_owner] = 0;
         totalSupply -= tokens;
+
         LogBurn(_owner, tokens);
 
         // Automatically switch phase when migration is done.
-        if(totalSupply == 0) {
+        if(totalSupply == 0) 
+        {
             currentState = State.Migrated;
             LogStateSwitch(State.Migrated);
         }
@@ -96,6 +105,13 @@ contract PresaleToken
 
     function setPresaleState(State _nextState) public onlyTokenManager
     {
+        // Init -> Running
+        // Running -> Paused
+        // Running -> Migrating
+        // Paused -> Running
+        // Paused -> Migrating
+        // Migrating -> Migrated
+
         bool canSwitchState
              =  (currentState == State.Init && _nextState == State.Running)
              || (currentState == State.Running && _nextState == State.Paused)
@@ -116,7 +132,8 @@ contract PresaleToken
 
     function withdrawEther() public onlyTokenManager
     {
-        if(this.balance > 0) {
+        if(this.balance > 0) 
+        {
             if(!escrow.send(this.balance)) throw;
         }
     }
@@ -125,6 +142,7 @@ contract PresaleToken
     {
         // You can't change crowdsale contract when migration is in progress.
         if(currentState == State.Migrating) throw;
+
         crowdsaleManager = _mgr;
     }
 
@@ -133,5 +151,4 @@ contract PresaleToken
     {
         buyTokens(msg.sender);
     }
-
 }
