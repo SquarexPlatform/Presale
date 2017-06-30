@@ -32,12 +32,12 @@ contract PresaleToken
     State public currentState = State.Init;
     uint public totalSupply = 0; // amount of tokens already sold
 
+    // Gathered funds can be withdrawn only to escrow's address.
+    address public escrow = 0;
+
     // Token manager has exclusive priveleges to call administrative
     // functions on this contract.
     address public tokenManager = 0;
-
-    // Gathered funds can be withdrawn only to escrow's address.
-    address public escrow = 0;
 
     // Crowdsale manager has exclusive priveleges to burn presale tokens.
     address public crowdsaleManager = 0;
@@ -111,7 +111,6 @@ contract PresaleToken
         // Paused -> Running
         // Paused -> Migrating
         // Migrating -> Migrated
-
         bool canSwitchState
              =  (currentState == State.Init && _nextState == State.Running)
              || (currentState == State.Running && _nextState == State.Paused)
@@ -144,6 +143,21 @@ contract PresaleToken
         if(currentState == State.Migrating) throw;
 
         crowdsaleManager = _mgr;
+    }
+
+    function getTokenManager()constant returns(address)
+    {
+        return tokenManager;
+    }
+
+    function getCrowdsaleManager()constant returns(address)
+    {
+        return crowdsaleManager;
+    }
+
+    function getCurrentState()constant returns(State)
+    {
+        return currentState;
     }
 
     // Default fallback function
