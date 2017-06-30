@@ -16,6 +16,8 @@ var escrow;
 var buyer;
 
 var initialBalanceCreator = 0;
+var initialBalanceEscrow = 0;
+var initialBalanceBuyer = 0;
 
 var contractAddress;
 var contract;
@@ -24,7 +26,7 @@ var contract;
 var unit = new BigNumber(Math.pow(10,18));
 
 function getContractAbi(contractName,cb){
-     var file = './contracts/EthLend.sol';
+     var file = './contracts/SquarEx.sol';
 
      fs.readFile(file, function(err, result){
           assert.equal(err,null);
@@ -137,6 +139,28 @@ describe('Contracts 0 - Deploy', function() {
                done();
           });
      });
+
+     it('should get initial balances',function(done){
+          initialBalanceCreator = web3.eth.getBalance(creator);
+          initialBalanceEscrow = web3.eth.getBalance(escrow);
+          initialBalanceBuyer = web3.eth.getBalance(buyer);
+
+          done();
+     });
+
+     it('should get initial token balances',function(done){
+          var balance = contract.balanceOf(creator);
+          assert.equal(balance,0);
+
+          balance = contract.balanceOf(escrow);
+          assert.equal(balance,0);
+
+          balance = contract.balanceOf(buyer);
+          assert.equal(balance,0);
+
+          done();
+     });
+
 });
 
 

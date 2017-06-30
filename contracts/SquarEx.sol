@@ -1,4 +1,4 @@
-pragma solidity ^0.4.12;
+pragma solidity ^0.4.4;
 
 // ERC20 token interface is implemented only partially
 // (no SafeMath is used because contract code is very simple)
