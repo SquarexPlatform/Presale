@@ -59,6 +59,9 @@ contract PresaleToken
     /// @param _tokenManager Token manager address.
     function PresaleToken(address _tokenManager, address _escrow) 
     {
+        if(_tokenManager==0) throw;
+        if(_escrow==0) throw;
+
         tokenManager = _tokenManager;
         escrow = _escrow;
     }

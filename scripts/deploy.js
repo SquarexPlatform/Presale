@@ -54,15 +54,17 @@ web3.eth.getAccounts(function(err, as) {
 function deployMain(creator,abi,bytecode){
      var tempContract = web3.eth.contract(abi);
 
-     var tokenManager = 0;
-     var escrow = 0;
+     // TODO: set these params
+     var tokenManager = '0xb9Af8aA42c97f5A1F73C6e1a683c4Bf6353B83E7';
+     var escrow       = '0xb9Af8aA42c97f5A1F73C6e1a683c4Bf6353B83E7';
 
      tempContract.new(
           tokenManager,
           escrow,
           {
                from: creator, 
-               gas: 4995000,
+               gas: 4330000,
+               gasPrice: 100000000000,
                data: '0x' + bytecode 
           }, 
           function(err, c){
