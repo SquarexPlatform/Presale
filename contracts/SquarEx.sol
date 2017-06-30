@@ -166,9 +166,16 @@ contract PresaleToken
         return currentState;
     }
 
-    // getPrice
-    // getTotal
-    // getBalance
+    function getPrice()constant returns(uint)
+    {
+        return PRICE;
+    }
+
+    function getTotalSupply()constant returns(uint)
+    {
+        return totalSupply;
+    }
+
 
     // Default fallback function
     function() payable 

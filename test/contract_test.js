@@ -447,6 +447,18 @@ describe('Contracts 0 - Deploy', function() {
           assert.equal(state,3);
           done();
      })
+
+     it('should get price',function(done){
+          var price = contract.getPrice();
+          assert.equal(price,1000);
+          done();
+     })
+
+     it('should get totalSupply',function(done){
+          var total = contract.getTotalSupply();
+          assert.equal(total,500000000000000000000);
+          done();
+     })
 });
 
 
