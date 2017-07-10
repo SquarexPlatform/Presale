@@ -19,7 +19,7 @@ contract PresaleToken
     // 1 eth = 1000 presale SQPT tokens
     // 
     // ETH price ~300$ for 30.06.2017
-    uint public constant TOKEN_SUPPLY_LIMIT = 1000 * 2000 * (1 ether / 1 wei);
+    uint public constant TOKEN_SUPPLY_LIMIT = PRICE * 2000 * (1 ether / 1 wei);
 
     enum State{
        Init,

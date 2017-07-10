@@ -41,10 +41,10 @@ web3.eth.getAccounts(function(err, as) {
      // 2 - read ABI
      var contractName = ':PresaleToken';
      getContractAbi(contractName,function(err,abi,bytecode,abiJson){
-          fs.writeFileSync('abi.out',abi);
+          fs.writeFileSync('abi.out',abiJson);
           console.log('Wrote ABI to file: abi.out');
 
-          deployMain(creator,abi,bytecode);
+          //deployMain(creator,abi,bytecode);
      });
 });
 
@@ -54,6 +54,9 @@ function deployMain(creator,abi,bytecode){
      // TODO: set these params
      var tokenManager = '0xb9Af8aA42c97f5A1F73C6e1a683c4Bf6353B83E7';
      var escrow       = '0xb9Af8aA42c97f5A1F73C6e1a683c4Bf6353B83E7';
+
+     var escrowAbiConv= '000000000000000000000000b9Af8aA42c97f5A1F73C6e1a683c4Bf6353B83E7';
+     var encoded      = '0000000000000000000000000000000000000000000000000000000000000040';
 
      console.log('Deploying from: ' + creator);
 
