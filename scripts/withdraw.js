@@ -44,40 +44,23 @@ web3.eth.getAccounts(function(err, as) {
           fs.writeFileSync('abi.out',abiJson);
           console.log('Wrote ABI to file: abi.out');
 
-          deployMain(creator,abi,bytecode);
+          setState(creator,abi,bytecode);
      });
 });
 
-function deployMain(creator,abi,bytecode){
-     var tempContract = web3.eth.contract(abi);
-
+function setState(creator,abi,bytecode){
      // TODO: set these params
+     var contractAddress = '0xaF1fa2C1DE8938A23c901aC16264333D04d9E9Eb';
      var tokenManager = '0xb9Af8aA42c97f5A1F73C6e1a683c4Bf6353B83E7';
-     var escrow       = '0xa67b74d719ec140495cd7ce98e6151f256b618f1';
 
-     var escrowAbiConv= '000000000000000000000000b9Af8aA42c97f5A1F73C6e1a683c4Bf6353B83E7';
-     var encoded      = '000000000000000000000000a67b74d719ec140495cd7ce98e6151f256b618f1;
-
-     console.log('Deploying from: ' + creator);
-
-     tempContract.new(
-          tokenManager,
-          escrow,
+     var contract = web3.eth.contract(abi).at(contractAddress);
+     contract.withdrawEther(
           {
-               from: creator, 
-               gas: 4330000,
-               gasPrice: 100000000000,
-               data: '0x' + bytecode 
-          }, 
-          function(err, c){
-               if(err){
-                    console.log('ERROR: ' + err);
-                    return;
-               }
-
-               console.log('TX hash: ');
-               console.log(c.transactionHash);
-          });
-
+               from: tokenManager,               
+               gas: 2900000 
+          },function(err,result){
+               assert.equal(err,null);
+          }
+     );
 }
 
