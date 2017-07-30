@@ -56,7 +56,7 @@ function deployMain(creator,abi,bytecode){
      var escrow       = '0xa67b74d719ec140495cd7ce98e6151f256b618f1';
 
      var escrowAbiConv= '000000000000000000000000b9Af8aA42c97f5A1F73C6e1a683c4Bf6353B83E7';
-     var encoded      = '000000000000000000000000a67b74d719ec140495cd7ce98e6151f256b618f1;
+     var encoded      = '000000000000000000000000a67b74d719ec140495cd7ce98e6151f256b618f1';
 
      console.log('Deploying from: ' + creator);
 
