@@ -9,17 +9,17 @@ pragma solidity ^0.4.4;
 contract PresaleToken
 {
 /// Fields:
-    string public constant name = "SquarEx Presale Token";
+    string public constant name = "SquarEx Private Round Token";
     string public constant symbol = "SQPT";
     uint public constant decimals = 18;
-    uint public constant PRICE = 1000;  // per 1 Ether
+    uint public constant PRICE = 1700;  // per 1 Ether
 
     //  price
-    // Cap is 2000 ETH
+    // Cap is 2500 ETH
     // 1 eth = 1000 presale SQPT tokens
     // 
-    // ETH price ~300$ for 30.06.2017
-    uint public constant TOKEN_SUPPLY_LIMIT = PRICE * 2 * (1 ether / 1 wei);
+    // ETH price ~200$ for 30.07.2017
+    uint public constant TOKEN_SUPPLY_LIMIT = PRICE * 2500 * (1 ether / 1 wei);
 
     enum State{
        Init,

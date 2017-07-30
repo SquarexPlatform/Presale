@@ -265,8 +265,7 @@ describe('Contracts 0 - Deploy', function() {
      it('should get updated Buyers balance',function(done){
           // 1 - tokens
           var tokens = contract.balanceOf(buyer);
-          assert.equal(tokens,200000000000000000 * 1000);
-          assert.equal(tokens / 1000000000000000000,200);   // 200 tokens (converted)
+          assert.equal(tokens / 1000000000000000000,340);   // tokens (converted)
 
           // 2 - ETHs
           var currentBalance= web3.eth.getBalance(buyer);
@@ -368,7 +367,7 @@ describe('Contracts 0 - Deploy', function() {
      it('should get updated Buyers balance',function(done){
           // 1 - tokens
           var tokens = contract.balanceOf(buyer);
-          assert.equal(tokens / 1000000000000000000,500);   // 500 tokens (converted)
+          assert.equal(tokens / 1000000000000000000,510 + 340);   // tokens (converted)
 
           // 2 - ETHs
           var currentBalance= web3.eth.getBalance(buyer);
@@ -450,13 +449,14 @@ describe('Contracts 0 - Deploy', function() {
 
      it('should get price',function(done){
           var price = contract.getPrice();
-          assert.equal(price,1000);
+          assert.equal(price,1700);
           done();
      })
 
      it('should get totalSupply',function(done){
           var total = contract.getTotalSupply();
-          assert.equal(total,500000000000000000000);
+          // 850 tokens
+          assert.equal(total,850000000000000000000);
           done();
      })
 });
