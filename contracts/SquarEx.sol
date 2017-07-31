@@ -9,14 +9,14 @@ pragma solidity ^0.4.4;
 contract PresaleToken
 {
 /// Fields:
-    string public constant name = "SquarEx Private Round Token";
-    string public constant symbol = "SQPT";
+    string public constant name = "SquarEx Private Round SQEX Token";
+    string public constant symbol = "SQEX";
     uint public constant decimals = 18;
     uint public constant PRICE = 1700;  // per 1 Ether
 
     //  price
     // Cap is 2500 ETH
-    // 1 eth = 1000 presale SQPT tokens
+    // 1 ETH = 1700 Private Round SQEX tokens
     // 
     // ETH price ~200$ for 30.07.2017
     uint public constant TOKEN_SUPPLY_LIMIT = PRICE * 2500 * (1 ether / 1 wei);
@@ -29,7 +29,7 @@ contract PresaleToken
        Migrated
     }
 
-    State public currentState = State.Init;
+    State public currentState = State.Running;
     uint public totalSupply = 0; // amount of tokens already sold
 
     // Gathered funds can be withdrawn only to escrow's address.

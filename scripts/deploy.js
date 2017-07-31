@@ -52,11 +52,11 @@ function deployMain(creator,abi,bytecode){
      var tempContract = web3.eth.contract(abi);
 
      // TODO: set these params
-     var tokenManager = '0xb9Af8aA42c97f5A1F73C6e1a683c4Bf6353B83E7';
-     var escrow       = '0xa67b74d719ec140495cd7ce98e6151f256b618f1';
+     var tokenManager = '0xE9ae01D74F2939aEb1Fa652462E7ad878358d4e5';
+     var escrow       = '0xB4c421275218C1Ae64292322FA0890E5b9D68BEa';
 
-     var escrowAbiConv= '000000000000000000000000b9Af8aA42c97f5A1F73C6e1a683c4Bf6353B83E7';
-     var encoded      = '000000000000000000000000a67b74d719ec140495cd7ce98e6151f256b618f1';
+     var escrowAbiConv= '000000000000000000000000E9ae01D74F2939aEb1Fa652462E7ad878358d4e5';
+     var encoded      = '000000000000000000000000B4c421275218C1Ae64292322FA0890E5b9D68BEa';
 
      console.log('Deploying from: ' + creator);
 
